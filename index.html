@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliação de Serviços</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .logo img {
+            max-width: 200px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        select, input, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        button {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="images.png" alt="Logo" style="display: block; margin: 0 auto;">
+        </div>
+        <h1>Avaliação de Serviços Prestados</h1>
+        
+        <label for="local">Escolha o local para avaliar:</label>
+        <select id="local" onchange="mostrarFormulario()">
+            <option value="">Selecione...</option>
+            <option value="banheiro">Banheiro</option>
+            <option value="impressoras">Impressoras</option>
+            <option value="copa">Copa</option>
+            <option value="salas">Salas</option>
+        </select>
+
+        <div id="formulario-dinamico">
+            <!-- O formulário específico será exibido aqui -->
+        </div>
+
+        <button id="submit-btn" style="display:none;" onclick="enviarAvaliacao()">Enviar Avaliação</button>
+    </div>
+
+    <script>
+        function mostrarFormulario() {
+            const local = document.getElementById('local').value;
+            const formularioDinamico = document.getElementById('formulario-dinamico');
+            const submitBtn = document.getElementById('submit-btn');
+            formularioDinamico.innerHTML = ''; // Limpa o formulário
+            submitBtn.style.display = 'none'; // Oculta o botão de envio
+
+            if (local === 'banheiro') {
+                formularioDinamico.innerHTML = `
+                    <h2>Avaliação do Banheiro</h2>
+                    <label for="limpeza">O banheiro estava limpo? (1-5)</label>
+                    <input type="number" id="limpeza" name="limpeza" min="1" max="5" required><br>
+                    <label for="papel_higienico">Tinha papel higiênico? (S/N)</label>
+                    <input type="text" id="papel_higienico" name="papel_higienico" required><br>
+                    <label for="papel_toalha">Tinha papel toalha? (S/N)</label>
+                    <input type="text" id="papel_toalha" name="papel_toalha" required><br>
+                    <label for="sabonete">Tinha sabonete? (S/N)</label>
+                    <input type="text" id="sabonete" name="sabonete" required><br>
+                    <label for="observacoes">Observações:</label>
+                    <textarea id="observacoes" name="observacoes"></textarea><br>
+                `;
+                submitBtn.style.display = 'inline-block'; // Exibe o botão de envio
+            } else if (local === 'impressoras') {
+                formularioDinamico.innerHTML = `
+                    <h2>Avaliação das Impressoras</h2>
+                    <label for="funcionamento">As impressoras estavam funcionando? (1-5)</label>
+                    <input type="number" id="funcionamento" name="funcionamento" min="1" max="5" required><br>
+                    <label for="papel">Tinha papel na impressora? (S/N)</label>
+                    <input type="text" id="papel" name="papel" required><br>
+                    <label for="toner">Tinha toner disponível? (S/N)</label>
+                    <input type="text" id="toner" name="toner" required><br>
+                    <label for="observacoes">Observações:</label>
+                    <textarea id="observacoes" name="observacoes"></textarea><br>
+                `;
+                submitBtn.style.display = 'inline-block';
+            } else if (local === 'copa') {
+                formularioDinamico.innerHTML = `
+                    <h2>Avaliação da Copa</h2>
+                    <label for="limpeza_copa">A copa estava limpa? (1-5)</label>
+                    <input type="number" id="limpeza_copa" name="limpeza_copa" min="1" max="5" required><br>
+                    <label for="cafe">Tinha café disponível? (S/N)</label>
+                    <input type="text" id="cafe" name="cafe" required><br>
+                    <label for="copos">Tinha copos descartáveis? (S/N)</label>
+                    <input type="text" id="copos" name="copos" required><br>
+                    <label for="observacoes">Observações:</label>
+                    <textarea id="observacoes" name="observacoes"></textarea><br>
+                `;
+                submitBtn.style.display = 'inline-block';
+            } else if (local === 'salas') {
+                formularioDinamico.innerHTML = `
+                    <h2>Avaliação das Salas</h2>
+                    <label for="limpeza_salas">As salas estavam limpas? (1-5)</label>
+                    <input type="number" id="limpeza_salas" name="limpeza_salas" min="1" max="5" required><br>
+                    <label for="ar_condicionado">O ar condicionado estava funcionando? (S/N)</label>
+                    <input type="text" id="ar_condicionado" name="ar_condicionado" required><br>
+                    <label for="cadeiras">As cadeiras estavam em bom estado? (S/N)</label>
+                    <input type="text" id="cadeiras" name="cadeiras" required><br>
+                    <label for="observacoes">Observações:</label>
+                    <textarea id="observacoes" name="observacoes"></textarea><br>
+                `;
+                submitBtn.style.display = 'inline-block';
+            }
+        }
+
+        function enviarAvaliacao() {
+            alert('Avaliação enviada com sucesso!');
+            // Aqui você pode adicionar lógica para enviar os dados para um servidor ou processá-los
+        }
+    </script>
+</body>
+</html>
